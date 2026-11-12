@@ -13,7 +13,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://medspin.vercel.app",
+        "https://med-spin-gh4zxilyo-zain-ul-abideens-projects-4c66e3a7.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
