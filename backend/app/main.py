@@ -1,4 +1,5 @@
-
+# backend/app/main.py
+import os
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -8,13 +9,19 @@ from app.models import Disease, ExploredDisease
 
 app = FastAPI(title="MedSpin API")
 
-# Allow Vue frontend
+origins = [
+    "http://localhost:5173",
+    "https://med-spin.vercel.app",  # replace with your real production domain
+]
+
+extra = os.getenv("FRONTEND_URL")
+if extra:
+    origins.append(extra.rstrip("/"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "https://med-spin-gh4zxilyo-zain-ul-abideens-projects-4c66e3a7.vercel.app",
-    ],
+    allow_origins=origins,
+    allow_origin_regex=r"https://med-spin.*\.vercel\.app",  # preview deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
